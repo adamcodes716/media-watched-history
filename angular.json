@@ -119,6 +119,12 @@
           }
         }
       }
-    }},
-  "defaultProject": "media-watched-history"
+    }
+  },
+  "defaultProject": "media-watched-history",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
