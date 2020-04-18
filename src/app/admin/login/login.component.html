@@ -1,0 +1,47 @@
+
+
+<!--      New Below            -->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-2">
+                    <h3>Login to your account</h3>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Enter Email Address" id="email"
+                               [(ngModel)]="email" name="email" required #em="ngModel">
+                                <div [hidden]="em.valid || em.pristine" class="alert callout">
+                                   Email is required
+                                </div>
+                        </div>
+                        <div class="form-group">
+                             <input type="password" class="form-control" placeholder="Enter Password" id="password1"
+                               [(ngModel)]="password1" name="password1" required #pwd1="ngModel">
+                             <div [hidden]="pwd1.valid || pwd1.pristine" class="alert callout">
+                                Password required
+                             </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" (click)="login()" />
+                             <!--
+                                 <div class="expanded button-group">
+                                     <a class="success button" (click)="login()">Login</a>
+                                    <a class="button" (click)="signup()">Sign Up</a>
+                                 </div>
+                              -->
+                            </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd" value="Login">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+

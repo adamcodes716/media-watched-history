@@ -1,8 +1,11 @@
-<div class="top-bar">
-  <div class="top-bar-title">Media Watched History</div>
-  <div>
-      <ul class="menu">
-          <li class="nav-menu"><a [routerLink]="['/admin']">Admin Area</a></li>
-      </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" [routerLink]="['/admin']">Admin Area! <span class="sr-only">(current)</span></a>
+    </div>
   </div>
-</div>
+</nav>
