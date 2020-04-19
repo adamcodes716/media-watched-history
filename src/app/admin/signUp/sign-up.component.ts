@@ -12,7 +12,7 @@ export class SignUpComponent {
   email: string;
   password1: string;
   password2: string;
-  passwordFail: boolean = false;
+  passwordFail = false;
 
   constructor(private userSVC: UserService, private router: Router){}
 
@@ -29,5 +29,5 @@ export class SignUpComponent {
   cancel(){
     this.router.navigate(['/admin/login']);
   }
-  
+
  }

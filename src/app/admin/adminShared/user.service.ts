@@ -25,12 +25,14 @@ export class UserService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let url: string = state.url;
-        return this.verifyLogin(url);
+        // return this.verifyLogin(url);
+        return this.verifyLogin();
     }
 
-    verifyLogin(url: string): boolean {
+    // verifyLogin(url: string): boolean {
+      verifyLogin(): boolean {
         if (this.userLoggedIn) { return true; }
-
+        // console.log (url);
         this.router.navigate(['/admin/login']);
         return false;
     }
