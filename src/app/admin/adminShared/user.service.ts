@@ -32,10 +32,18 @@ export class UserService implements CanActivate {
     // verifyLogin(url: string): boolean {
       verifyLogin(): boolean {
         console.log ('Verify login.  Logged in=' + this.userLoggedIn);
-        if (this.userLoggedIn) { return true; }
+       // if (this.userLoggedIn) { return true; }
         // console.log (url);
-        this.router.navigate(['/admin/login']);
-        return false;
+        if (localStorage.getItem('user')) {
+          console.log('user ist logged in ....', localStorage.getItem('user'));
+
+          return true;
+      } else {
+          console.log('user is not logged in');
+
+          this.router.navigate(['/admin/login']);
+          return false;
+      }
     }
 
     register(email: string, password: string){
@@ -58,7 +66,10 @@ export class UserService implements CanActivate {
 
     login(loginEmail: string, loginPassword: string) {
       console.log ('Trying to log in');
-      firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error) {
+      firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).then(function(){
+        localStorage.setItem('user', firebase.auth().currentUser.email);
+      })
+      .catch(function(error) {
                 alert(`${error.message} Unable to login. Try again!`);
         });
     }
@@ -66,8 +77,8 @@ export class UserService implements CanActivate {
     logout(){
         this.userLoggedIn = false;
         firebase.auth().signOut().then(function() {
-            alert(`Logged Out!`);
-
+          localStorage.removeItem('user');
+          alert(`Logged Out!`);
         }, function(error) {
             alert(`${error.message} Unable to logout. Try again!`);
         });
