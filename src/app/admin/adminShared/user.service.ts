@@ -24,13 +24,14 @@ export class UserService implements CanActivate {
      }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        let url: string = state.url;
+        const url: string = state.url;
         // return this.verifyLogin(url);
         return this.verifyLogin();
     }
 
     // verifyLogin(url: string): boolean {
       verifyLogin(): boolean {
+        console.log ('Verify login.  Logged in=' + this.userLoggedIn);
         if (this.userLoggedIn) { return true; }
         // console.log (url);
         this.router.navigate(['/admin/login']);
@@ -38,13 +39,13 @@ export class UserService implements CanActivate {
     }
 
     register(email: string, password: string){
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
                 alert(`${error.message} Please Try Again!`);
         });
     }
 
     verifyUser() {
+        console.log('User Service.  Verify user: ' + this.authUser);
         this.authUser = firebase.auth().currentUser;
         if (this.authUser) {
 
@@ -56,8 +57,8 @@ export class UserService implements CanActivate {
     }
 
     login(loginEmail: string, loginPassword: string) {
-        firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
-            .catch(function(error) {
+      console.log ('Trying to log in');
+      firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword).catch(function(error) {
                 alert(`${error.message} Unable to login. Try again!`);
         });
     }
