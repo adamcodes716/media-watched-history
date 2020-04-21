@@ -6,227 +6,77 @@
       <h1>
         Welcome to What Adam's Watching
       </h1>
-      <img
-        width="300"
-        alt="Angular Logo"
-        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-      />
     </div>
   </div>
+</div>
 
-    <div class="row">
-      <form class="form-inline">
-        <div class="form-group">
-          <input type="search"
-                 class="form-control"
-                 placeholder="Enter search string">
 
-        </div>
-      </form>
-      <td>
-      <table border="1" style="width: 33%;">
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Status</th>
-        </tr>
 
-        <tr *ngFor="let mov of movies">
-          <td>{{ mov.year }}</td>
-          <td>{{ mov.title }}</td>
-          <td>{{ mov.certification }}</td>
-        </tr>
-
-      </table>
-    </div>
+<div>
+  <div class="card-header">
+		<div class="row">
+          <div class="col-xs-6 col-lg-8">
+          	<div class="left"><span></span></div>
+          </div>
+    		<div class="col-xs-6 col-lg-4">
+      			<div class="input-group">
+   					 <input type="text" placeholder="search" [(ngModel)]="listFilter" />
+   					<div class="input-group-btn">
+        					<button class="btn btn-default" type="submit">
+        						<span class="glyphicon glyphicon-search"></span>
+        					</button>
+   					</div>
+   				</div>
+    		</div>
+  		</div>
   </div>
-
-  <div class='card'>
-    <div class='card-header'>
-      {{pageTitle}}
-    </div>
-    <div class='card-body'>
-      <div class='row'>
-        <div class='col-md-2'>Filter by:</div>
-        <div class='col-md-4'>
-          <input type='text'
-          [(ngModel)]='listFilter' />
-        </div>
-      </div>
-      <div class='row'>
-        <div class='col-md-6'>
-          <h4>Filtered by: {{listFilter}}</h4>
-        </div>
-      </div>
-      <div class='table-responsive'>
-        <table class='table'
-             *ngIf='movies && movies.length'>
-          <thead>
-            <tr>
-              <th>title</th>
-              <th>ID</th>
-            </tr>
-          </thead>
-          <tbody>
-             <tr *ngFor = 'let movie1 of filteredMovies'>
-                <td><a [routerLink]="['/products', movie1.imdb_id]">
-                 {{movie1.title }} </a></td>
-                <td> {{movie1.imdb_id }}</td>
-             </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
+</div>
 
 <div class="container">
-	<div class="movie-card">
-		<div class="movie-header movie-cover" style="background-image: url('http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg')">
-			<div class="header-icon-container">
-				<a href="#">
-					<i class="material-icons header-icon"></i>
-				</a>
-			</div>
-		</div><!--movie-header-->
-		<div class="movie-content">
-			<div class="movie-content-header">
-				<a href="#">
-					<h3 class="movie-title">Man of Steel</h3>
-				</a>
-				<div class="imax-logo"></div>
-			</div>
-			<div class="movie-info">
-				<div class="info-section">
-					<label>Date Watched</label>
-					<span>Sun 8 Sept - 10:00PM</span>
-				</div><!--date,time-->
-				<div class="info-section">
-					<label>Year</label>
-					<span>2003</span>
-				</div><!--screen-->
-				<div class="info-section">
-					<label>Runtime</label>
-					<span>100m</span>
-				</div><!--row-->
-				<div class="info-section">
-					<label>Certification</label>
-					<span>PG</span>
-				</div><!--seat-->
-			</div>
-		</div><!--movie-content-->
-	</div><!--movie-card-->
-
-	<div class="movie-card">
-		<div class="movie-header theDarkTower">
-			<div class="header-icon-container">
-				<a href="#">
-					<i class="material-icons header-icon"></i>
-				</a>
-			</div>
-		</div><!--movie-header-->
-		<div class="movie-content">
-			<div class="movie-content-header">
-				<a href="#">
-					<h3 class="movie-title">The Dark Tower</h3>
-				</a>
-				<div class="imax-logo"></div>
-			</div>
-			<div class="movie-info">
-				<div class="info-section">
-					<label>Date & Time</label>
-					<span>Wed 16 Aug - 07:00PM</span>
-				</div><!--date,time-->
-				<div class="info-section">
-					<label>Screen</label>
-					<span>06</span>
-				</div><!--screen-->
-				<div class="info-section">
-					<label>Row</label>
-					<span>C</span>
-				</div><!--row-->
-				<div class="info-section">
-					<label>Seat</label>
-					<span>18</span>
-				</div><!--seat-->
-			</div>
-		</div><!--movie-content-->
-	</div><!--movie-card-->
-
-	<div class="movie-card">
-		<div class="movie-header bladeRunner2049">
-			<div class="header-icon-container">
-				<a href="#">
-					<i class="material-icons header-icon"></i>
-				</a>
-			</div>
-		</div><!--movie-header-->
-		<div class="movie-content">
-			<div class="movie-content-header">
-				<a href="#">
-					<h3 class="movie-title">Blade Runner 2049</h3>
-				</a>
-				<div class="imax-logo"></div>
-			</div>
-			<div class="movie-info">
-				<div class="info-section">
-					<label>Date & Time</label>
-					<span>Mon 16 Oct - 10:00PM</span>
-				</div><!--date,time-->
-				<div class="info-section">
-					<label>Screen</label>
-					<span>06</span>
-				</div><!--screen-->
-				<div class="info-section">
-					<label>Row</label>
-					<span>D</span>
-				</div><!--row-->
-				<div class="info-section">
-					<label>Seat</label>
-					<span>05,06</span>
-				</div><!--seat-->
-			</div>
-		</div><!--movie-content-->
-  </div><!--movie-card-->
-
-  <div class="movie-card" *ngFor = "let media of filteredMovies" >
-		<div class="movie-header movie-cover" style="background-image: url({{media.images}})">
-			<div class="header-icon-container">
-				<a href="#">
-					<i class="material-icons header-icon"></i>
-				</a>
-			</div>
-    </div><!--movie-header-->
+  <div class="movie-card" *ngFor="let media of filteredMovies">
+    <div
+      class="movie-header movie-cover"
+      style="background-image: url({{ media.images }})"
+    >
+      <div class="header-icon-container">
+        <a href="#">
+          <i class="material-icons header-icon"></i>
+        </a>
+      </div>
+    </div>
+    <!--movie-header-->
     <div class="movie-content">
-			<div class="movie-content-header">
-				<a href="#">
-					<h3 class="movie-title">{{media.title}}</h3>
-				</a>
-				<div class="imax-logo"></div>
-			</div>
-			<div class="movie-info">
-				<div class="info-section">
-					<label>Date Watched</label>
-					<span>Sun 8 Sept - 10:00PM</span>
-				</div><!--date,time-->
+      <div class="movie-content-header">
+        <a href="#">
+          <h3 class="movie-title">{{ media.title }}</h3>
+        </a>
+        <div class="imax-logo"></div>
+      </div>
+      <div class="movie-info">
         <div class="info-section">
-					<label>Year</label>
-					<span>{{media.year}}</span>
-				</div><!--screen-->
-				<div class="info-section">
-					<label>Runtime</label>
-					<span>{{media.runtime}}</span>
-				</div><!--row-->
-				<div class="info-section">
-					<label>Certification</label>
-					<span>{{ media.certification }}</span>
-				</div><!--seat-->
-			</div>
-		</div><!--movie-content-->
-
-
-	</div><!--movie-card-->
-
-</div><!--container-->
-
-
+          <label>Date Watched</label>
+          <span>Sun 8 Sept - 10:00PM</span>
+        </div>
+        <!--date,time-->
+        <div class="info-section">
+          <label>Year</label>
+          <span>{{ media.year }}</span>
+        </div>
+        <!--screen-->
+        <div class="info-section">
+          <label>Runtime</label>
+          <span>{{ media.runtime }}</span>
+        </div>
+        <!--row-->
+        <div class="info-section">
+          <label>Certification</label>
+          <span>{{ media.certification }}</span>
+        </div>
+        <!--seat-->
+      </div>
+    </div>
+    <!--movie-content-->
+  </div>
+  <!--movie-card-->
+</div>
+<!--container-->
