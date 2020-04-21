@@ -30,11 +30,13 @@
           <th>Name</th>
           <th>Status</th>
         </tr>
+
         <tr *ngFor="let mov of movies">
-          <td>{{ mov.id }}</td>
-          <td>{{ mov.name }}</td>
-          <td>{{ mov.status }}</td>
+          <td>{{ mov.year }}</td>
+          <td>{{ mov.title }}</td>
+          <td>{{ mov.certification }}</td>
         </tr>
+
       </table>
     </div>
   </div>
@@ -61,15 +63,15 @@
              *ngIf='movies && movies.length'>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>title</th>
               <th>ID</th>
             </tr>
           </thead>
           <tbody>
-             <tr *ngFor = 'let movie of filteredMovies'>
-                <td><a [routerLink]="['/products', movie.id]">
-                 {{movie.name }} </a></td>
-                <td> {{movie.id }}</td>
+             <tr *ngFor = 'let movie1 of filteredMovies'>
+                <td><a [routerLink]="['/products', movie1.imdb_id]">
+                 {{movie1.title }} </a></td>
+                <td> {{movie1.imdb_id }}</td>
              </tr>
           </tbody>
         </table>
@@ -79,8 +81,6 @@
 
 
 <div class="container">
-
-
 	<div class="movie-card">
 		<div class="movie-header movie-cover" style="background-image: url('http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg')">
 			<div class="header-icon-container">
@@ -98,20 +98,20 @@
 			</div>
 			<div class="movie-info">
 				<div class="info-section">
-					<label>Date & Time</label>
+					<label>Date Watched</label>
 					<span>Sun 8 Sept - 10:00PM</span>
 				</div><!--date,time-->
 				<div class="info-section">
-					<label>Screen</label>
-					<span>03</span>
+					<label>Year</label>
+					<span>2003</span>
 				</div><!--screen-->
 				<div class="info-section">
-					<label>Row</label>
-					<span>F</span>
+					<label>Runtime</label>
+					<span>100m</span>
 				</div><!--row-->
 				<div class="info-section">
-					<label>Seat</label>
-					<span>21,22</span>
+					<label>Certification</label>
+					<span>PG</span>
 				</div><!--seat-->
 			</div>
 		</div><!--movie-content-->
@@ -187,6 +187,44 @@
 				</div><!--seat-->
 			</div>
 		</div><!--movie-content-->
+  </div><!--movie-card-->
+
+  <div class="movie-card" *ngFor = "let media of filteredMovies" >
+		<div class="movie-header movie-cover" style="background-image: url({{media.images}})">
+			<div class="header-icon-container">
+				<a href="#">
+					<i class="material-icons header-icon"></i>
+				</a>
+			</div>
+    </div><!--movie-header-->
+    <div class="movie-content">
+			<div class="movie-content-header">
+				<a href="#">
+					<h3 class="movie-title">{{media.title}}</h3>
+				</a>
+				<div class="imax-logo"></div>
+			</div>
+			<div class="movie-info">
+				<div class="info-section">
+					<label>Date Watched</label>
+					<span>Sun 8 Sept - 10:00PM</span>
+				</div><!--date,time-->
+        <div class="info-section">
+					<label>Year</label>
+					<span>{{media.year}}</span>
+				</div><!--screen-->
+				<div class="info-section">
+					<label>Runtime</label>
+					<span>{{media.runtime}}</span>
+				</div><!--row-->
+				<div class="info-section">
+					<label>Certification</label>
+					<span>{{ media.certification }}</span>
+				</div><!--seat-->
+			</div>
+		</div><!--movie-content-->
+
+
 	</div><!--movie-card-->
 
 </div><!--container-->

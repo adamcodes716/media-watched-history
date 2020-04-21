@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
    performFilter(filterBy: string): Movie[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.movies.filter((movie: Movie) =>
-      movie.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
 
   ngOnInit(): void {
