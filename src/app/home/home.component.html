@@ -30,10 +30,10 @@
           <th>Name</th>
           <th>Status</th>
         </tr>
-        <tr *ngFor="let emp of employees">
-          <td>{{ emp.id }}</td>
-          <td>{{ emp.name }}</td>
-          <td>{{ emp.status }}</td>
+        <tr *ngFor="let mov of movies">
+          <td>{{ mov.id }}</td>
+          <td>{{ mov.name }}</td>
+          <td>{{ mov.status }}</td>
         </tr>
       </table>
     </div>
@@ -58,7 +58,7 @@
       </div>
       <div class='table-responsive'>
         <table class='table'
-             *ngIf='employees && employees.length'>
+             *ngIf='movies && movies.length'>
           <thead>
             <tr>
               <th>Name</th>
@@ -66,10 +66,10 @@
             </tr>
           </thead>
           <tbody>
-             <tr *ngFor = 'let employee of filteredEmployees'>
-                <td><a [routerLink]="['/products', employee.id]">
-                 {{employee.name }} </a></td>
-                <td> {{employee.id }}</td>
+             <tr *ngFor = 'let movie of filteredMovies'>
+                <td><a [routerLink]="['/products', movie.id]">
+                 {{movie.name }} </a></td>
+                <td> {{movie.id }}</td>
              </tr>
           </tbody>
         </table>

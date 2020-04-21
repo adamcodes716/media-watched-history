@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
 
-import { Employee } from './../home/Employee';
+import { Movie } from './movie';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +14,8 @@ import { Employee } from './../home/Employee';
 })
 export class HomeComponent implements OnInit {
   pageTitle = 'Movie Stuff';
-  employees: Employee[];  // same as  new Array<Employee>();
-  filteredEmployees: Employee[];
+  movies: Movie[];  // same as  new Array<Movies>();
+  filteredMovies: Movie[];
   private searchField: FormControl;
   errorMessage: string;
   // listFilter = '';
@@ -26,30 +26,25 @@ export class HomeComponent implements OnInit {
    }
    set listFilter(value: string) {
     this._listFilter = value;
-    this.filteredEmployees = this.listFilter ? this.performFilter(this.listFilter) : this.employees;
+    this.filteredMovies = this.listFilter ? this.performFilter(this.listFilter) : this.movies;
    }
 
   constructor(private dataService: DataService) {
-    this.filteredEmployees = this.employees;
+    this.filteredMovies = this.movies;
    // this.listFilter = 'Adam';
    }
 
-   getSomeEmployees(){
-     console.log ('getting some employees');
-     this.dataService.getEmployees();
-   }
-
-   performFilter(filterBy: string): Employee[] {
+   performFilter(filterBy: string): Movie[] {
     filterBy = filterBy.toLocaleLowerCase();
-    return this.employees.filter((employee: Employee) =>
-       employee.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    return this.movies.filter((movie: Movie) =>
+      movie.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
 
   ngOnInit(): void {
-    this.dataService.getEmployees().subscribe({
-         next:  employees => {
-           this.employees = employees,
-           this.filteredEmployees = this.employees;
+    this.dataService.getMovies().subscribe({
+         next:  movies => {
+           this.movies = movies,
+           this.filteredMovies = this.movies;
          },
          error: err => this.errorMessage = err
         // next(employees) { this.employees = employees } // shorthand, not working for me

@@ -1,9 +1,10 @@
+
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
-import { Employee } from './../home/Employee';
+import { Movie } from './../home/movie';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,13 @@ import { Employee } from './../home/Employee';
 export class DataService {
 
   constructor(private http: HttpClient) { }
-  private apiUrl = 'assets/employees.json';
-  employees: Observable<Employee>;
+  private apiUrl = 'assets/movies.json';
+  movies: Observable<Movie>;
 
-  public getEmployees(): Observable<Employee[]>
+  public getMovies(): Observable<Movie[]>
   {
-    // return this.http.get<Employee[]>(this.apiUrl);
-    return this.http.get<Employee[]>(this.apiUrl).pipe(
+    // return this.http.get<Movie[]>(this.apiUrl);
+    return this.http.get<Movie[]>(this.apiUrl).pipe(
       tap(data => console.log('All:  ' + JSON.stringify(data))),
       catchError (this.handleError)
     );
