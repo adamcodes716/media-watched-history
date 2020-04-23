@@ -17,22 +17,9 @@
         <div class="left"><span></span></div>
       </div>
       <div class="col-xs-4 col-lg-4 d-flex justify-content-center">
-        <div class="bs-example">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-primary active">
-              <input
-                type="checkbox"
-                name="options"
-                autocomplete="off"
-                checked
-              />
-              Movies
-            </label>
-            <label class="btn btn-primary">
-              <input type="checkbox" name="options" autocomplete="off" /> Shows
-            </label>
-          </div>
-        </div>
+           <mat-button-toggle-group [(value)] = "selectedMedia" #group="matButtonToggleGroup" multiple=false>
+            <mat-button-toggle  *ngFor="let item of toggleOptions;" (change)="selectionMediaChanged($event)" [value]="item">{{item}}</mat-button-toggle>
+          </mat-button-toggle-group>
       </div>
       <div class="col-xs-4 col-lg-4 d-flex flex-column-reverse">
         <div class="input-group">
@@ -49,6 +36,8 @@
 </div>
 
 <div class="container">
+  <!-- This is the MOVIE card block-->
+  <div *ngIf="isMovie">
   <div class="movie-card" *ngFor="let media of filteredMovies">
     <div
       class="movie-header movie-cover"
@@ -94,5 +83,52 @@
     <!--movie-content-->
   </div>
   <!--movie-card-->
+  </div>
+  <!--movie container-->
+
+   <!-- This is the TV SHow card block-->
+   <div *ngIf="!isMovie">
+    <div class="movie-card" *ngFor="let media of filteredShows">
+      <div
+        class="movie-header movie-cover"
+        style="background-image: url('./assets/images/comingsoon.jpg');"
+      >
+        <div class="header-icon-container">
+          <a href="#">
+            <i class="material-icons header-icon"></i>
+          </a>
+        </div>
+      </div>
+      <!--movie-header-->
+      <div class="movie-content">
+        <div class="movie-content-header">
+          <a href="" target="_blank">
+            <h3 class="movie-title">{{ media.show.title }}</h3>
+          </a>
+          <!--    <div class="imax-logo"></div> -->
+        </div>
+        <div class="movie-info">
+          <div class="info-section">
+            <label>Date Watched</label>
+            <span>{{ media.watched_at | date: "short" }}</span>
+          </div>
+          <!--date,time-->
+          <div class="info-section">
+            <label>Episode</label>
+            <span>S{{ media.episode.season }}E{{ media.episode.number }}</span>
+          </div>
+          <!--screen-->
+          <div class="info-section">
+            <label>Title</label>
+            <span>{{ media.episode.title }}</span>
+          </div>
+          <!--seat-->
+        </div>
+      </div>
+      <!--movie-content-->
+    </div>
+    <!--movie-card-->
+    </div>
+    <!--tv show container-->
 </div>
 <!--container-->

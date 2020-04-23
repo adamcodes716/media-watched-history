@@ -1,10 +1,10 @@
-
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap, map, mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Movie } from './../home/movie';
+import { Show } from './../home/show';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,8 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
   // private apiUrl = 'assets/movies.json';
-  private apiUrl = 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=1&limit=10&extended=full';
+  private apiMovieUrl = 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=1&limit=10&extended=full';
+  private apiShowUrl = 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=1&limit=10&extended=metadata';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',
@@ -26,13 +27,23 @@ export class DataService {
 
   public getMovies(): Observable<Movie[]>
   {
-    return this.http.get<Movie[]>(this.apiUrl, this.httpOptions).pipe(
+    return this.http.get<Movie[]>(this.apiMovieUrl, this.httpOptions).pipe(
        tap(data => console.log( data[0].movie.ids.imdb)),    // this works.  I need to pass this into a second service
       tap(data => console.log('All:  ' + JSON.stringify(data))),
       catchError (this.handleError)
       );
       // mergeMap ( theID => this.http.get (this.apiUrl);
     }
+
+    public getShows(): Observable<Show[]>
+    {
+      return this.http.get<Show[]>(this.apiShowUrl, this.httpOptions).pipe(
+         tap(data => console.log( data[0].show.ids.imdb)),    // this works.  I need to pass this into a second service
+        tap(data => console.log('All:  ' + JSON.stringify(data))),
+        catchError (this.handleError)
+        );
+        // mergeMap ( theID => this.http.get (this.apiUrl);
+      }
 
  private handleError(err: HttpErrorResponse) {
   let errorMessage = '';

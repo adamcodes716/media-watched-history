@@ -10,6 +10,8 @@ import { ErrorComponent } from './error/error.component';
 
 import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './data/materials/materials.component';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     AdminModule,  // has to be imported before routing module because routing is top-down matching
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

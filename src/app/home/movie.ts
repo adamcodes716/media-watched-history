@@ -3,6 +3,7 @@ export class Movie {
   public id: string;
   public action: string;
   public type: string;
+  // tslint:disable-next-line: variable-name
   public watched_at: string;
   public movie?:
         { ids: {
