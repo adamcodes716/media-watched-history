@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
 
+
 import { Movie } from './movie';
 
 @Component({
@@ -18,6 +19,8 @@ export class HomeComponent implements OnInit {
   filteredMovies: Movie[];
   private searchField: FormControl;
   errorMessage: string;
+  toggleOptions: Array<string> = ['Movies', 'Shows'];
+  selectedMedia: string[] = ['Movies'];
   // listFilter = '';
 
   _listFilter: string;
@@ -37,7 +40,7 @@ export class HomeComponent implements OnInit {
    performFilter(filterBy: string): Movie[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.movies.filter((movie: Movie) =>
-      movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+      movie.movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
 
   ngOnInit(): void {

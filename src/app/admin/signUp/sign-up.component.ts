@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {UserService} from '../adminShared/user.service';
+import { UserService } from '../adminShared/user.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({

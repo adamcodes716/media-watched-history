@@ -10,25 +10,41 @@
   </div>
 </div>
 
-
-
 <div>
   <div class="card-header">
-		<div class="row">
-          <div class="col-xs-6 col-lg-8">
-          	<div class="left"><span></span></div>
+    <div class="row">
+      <div class="col-xs-4 col-lg-4">
+        <div class="left"><span></span></div>
+      </div>
+      <div class="col-xs-4 col-lg-4 d-flex justify-content-center">
+        <div class="bs-example">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-primary active">
+              <input
+                type="checkbox"
+                name="options"
+                autocomplete="off"
+                checked
+              />
+              Movies
+            </label>
+            <label class="btn btn-primary">
+              <input type="checkbox" name="options" autocomplete="off" /> Shows
+            </label>
           </div>
-    		<div class="col-xs-6 col-lg-4">
-      			<div class="input-group">
-   					 <input type="text" placeholder="search" [(ngModel)]="listFilter" />
-   					<div class="input-group-btn">
-        					<button class="btn btn-default" type="submit">
-        						<span class="glyphicon glyphicon-search"></span>
-        					</button>
-   					</div>
-   				</div>
-    		</div>
-  		</div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 d-flex flex-column-reverse">
+        <div class="input-group">
+          <input type="text" placeholder="search" [(ngModel)]="listFilter" />
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -36,7 +52,7 @@
   <div class="movie-card" *ngFor="let media of filteredMovies">
     <div
       class="movie-header movie-cover"
-      style="background-image: url({{ media.images }})"
+      style="background-image: url('./assets/images/comingsoon.jpg');"
     >
       <div class="header-icon-container">
         <a href="#">
@@ -47,30 +63,30 @@
     <!--movie-header-->
     <div class="movie-content">
       <div class="movie-content-header">
-        <a href="#">
-          <h3 class="movie-title">{{ media.title }}</h3>
+        <a href="{{ media.movie.trailer }}" target="_blank">
+          <h3 class="movie-title">{{ media.movie.title }}</h3>
         </a>
-        <div class="imax-logo"></div>
+        <!--    <div class="imax-logo"></div> -->
       </div>
       <div class="movie-info">
         <div class="info-section">
           <label>Date Watched</label>
-          <span>Sun 8 Sept - 10:00PM</span>
+          <span>{{ media.watched_at | date: "short" }}</span>
         </div>
         <!--date,time-->
         <div class="info-section">
           <label>Year</label>
-          <span>{{ media.year }}</span>
+          <span>{{ media.movie.year }}</span>
         </div>
         <!--screen-->
         <div class="info-section">
           <label>Runtime</label>
-          <span>{{ media.runtime }}</span>
+          <span>{{ media.movie.runtime }}</span>
         </div>
         <!--row-->
         <div class="info-section">
-          <label>Certification</label>
-          <span>{{ media.certification }}</span>
+          <label>Community Rating</label>
+          <span>{{ media.movie.rating | number: "1.2-2" }}</span>
         </div>
         <!--seat-->
       </div>
