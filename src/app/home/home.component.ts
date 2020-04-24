@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private searchField: FormControl;
   errorMessage: string;
   toggleOptions: Array<string> = ['Movies', 'Shows'];
-  selectedMedia = 'Movies';
+  selectedMedia = 'Shows';
   isMovie = true;
   totalRecords = '1000';
   page = 1;
@@ -100,7 +100,7 @@ getMedia(mediaType: string): void {
 }
 
 ngOnInit(): void {
-  this.getMedia('Movies');
+  this.getMedia(this.selectedMedia);
   // this.dataService.paginator = this.paginator;
   }
 

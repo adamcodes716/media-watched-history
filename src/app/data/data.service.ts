@@ -29,11 +29,11 @@ export class DataService {
 
   public getMovies(): Observable<Movie[]>
   {
-    console.log ('getting page: ' + this.mediaPageNumber );
+   // console.log ('getting page: ' + this.mediaPageNumber );
    // console.log ('getting Movies: ' + this.apiMovieUrl );
     console.log ('getting Page: ' + this.getMoviesURL() );
     return this.http.get<Movie[]>(this.getMoviesURL(), this.httpOptions).pipe(
-       tap(data => console.log( data[0].movie.ids.imdb)),    // this works.  I need to pass this into a second service
+     //  tap(data => console.log( data[0].movie.ids.imdb)),    // this works.  I need to pass this into a second service
       tap(data => console.log('All:  ' + JSON.stringify(data))),
      // tap (data => console.log ('Pages = ' + data.headers.getAll('x-total-count')),
       catchError (this.handleError)
@@ -44,7 +44,7 @@ export class DataService {
     public getShows(): Observable<Show[]>
     {
       return this.http.get<Show[]>(this.getShowsURL(), this.httpOptions).pipe(
-         tap(data => console.log( data[0].show.ids.imdb)),    // this works.  I need to pass this into a second service
+       //  tap(data => console.log( data[0].show.ids.imdb)),    // this works.  I need to pass this into a second service
         tap(data => console.log('All:  ' + JSON.stringify(data))),
         catchError (this.handleError)
         );
