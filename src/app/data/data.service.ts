@@ -1,3 +1,4 @@
+import { GlobalConstants } from './../common/global-constants';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap, map, mergeMap } from 'rxjs/operators';
@@ -13,8 +14,9 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
   // private apiUrl = 'assets/movies.json';
-  private apiMovieUrl = 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=1&limit=10&extended=full';
-  private apiShowUrl = 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=1&limit=10&extended=metadata';
+  mediaItemsPerPage = 8;
+  mediaPageNumber = 1;
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-type': 'application/json',
@@ -27,9 +29,13 @@ export class DataService {
 
   public getMovies(): Observable<Movie[]>
   {
-    return this.http.get<Movie[]>(this.apiMovieUrl, this.httpOptions).pipe(
+    console.log ('getting page: ' + this.mediaPageNumber );
+   // console.log ('getting Movies: ' + this.apiMovieUrl );
+    console.log ('getting Page: ' + this.getMoviesURL() );
+    return this.http.get<Movie[]>(this.getMoviesURL(), this.httpOptions).pipe(
        tap(data => console.log( data[0].movie.ids.imdb)),    // this works.  I need to pass this into a second service
       tap(data => console.log('All:  ' + JSON.stringify(data))),
+     // tap (data => console.log ('Pages = ' + data.headers.getAll('x-total-count')),
       catchError (this.handleError)
       );
       // mergeMap ( theID => this.http.get (this.apiUrl);
@@ -37,13 +43,22 @@ export class DataService {
 
     public getShows(): Observable<Show[]>
     {
-      return this.http.get<Show[]>(this.apiShowUrl, this.httpOptions).pipe(
+      return this.http.get<Show[]>(this.getShowsURL(), this.httpOptions).pipe(
          tap(data => console.log( data[0].show.ids.imdb)),    // this works.  I need to pass this into a second service
         tap(data => console.log('All:  ' + JSON.stringify(data))),
         catchError (this.handleError)
         );
         // mergeMap ( theID => this.http.get (this.apiUrl);
       }
+
+getMoviesURL(){
+  return 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=' + this.mediaPageNumber +
+  '&limit=' + this.mediaItemsPerPage + ' &extended=full';
+}
+getShowsURL(){
+  return 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=' + this.mediaPageNumber +
+  '&limit=' + this.mediaItemsPerPage + ' &extended=metadata';
+}
 
  private handleError(err: HttpErrorResponse) {
   let errorMessage = '';

@@ -35,10 +35,17 @@
   </div>
 </div>
 
+<div>
+    <div class="row">
+      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
+</div>
+
 <div class="container">
   <!-- This is the MOVIE card block-->
   <div *ngIf="isMovie">
-  <div class="movie-card" *ngFor="let media of filteredMovies">
+  <div class="movie-card" *ngFor="let media of filteredMovies| paginate: { itemsPerPage: this.dataService.mediaItemsPerPage,
+    currentPage: this.dataService.mediaPageNumber, totalItems: 850 }">
     <div
       class="movie-header movie-cover"
       style="background-image: url('./assets/images/comingsoon.jpg');"

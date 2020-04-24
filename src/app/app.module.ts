@@ -11,7 +11,7 @@ import { ErrorComponent } from './error/error.component';
 import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './data/materials/materials.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import { MaterialModule } from './data/materials/materials.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

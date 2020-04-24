@@ -25,6 +25,7 @@
     "firebase": "^7.14.1",
     "foundation-sites": "^6.6.3",
     "jquery": "^3.5.0",
+    "ngx-pagination": "^5.0.0",
     "node-sass": "^4.13.1",
     "popper": "^1.0.1",
     "rxjs": "~6.5.4",

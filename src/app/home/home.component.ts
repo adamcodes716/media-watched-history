@@ -1,5 +1,6 @@
+import { GlobalConstants } from './../common/global-constants';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DataService } from './../data/data.service';
 import { Observable } from 'rxjs';
 import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
@@ -7,13 +8,16 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { Movie } from './movie';
 import { Show } from './show';
+import { ChangeDetectionStrategy,  Input} from '@angular/core';
+// import { PaginationInstance } from 'ngx-pagination';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   pageTitle = 'Movie Stuff';
   movies: Movie[];  // same as  new Array<Movies>();
   shows: Show[];
@@ -24,6 +28,8 @@ export class HomeComponent implements OnInit {
   toggleOptions: Array<string> = ['Movies', 'Shows'];
   selectedMedia = 'Movies';
   isMovie = true;
+  totalRecords = '1000';
+  page = 1;
   // listFilter = '';
 
   // tslint:disable-next-line: variable-name
@@ -36,7 +42,7 @@ export class HomeComponent implements OnInit {
     this.filteredMovies = this.listFilter ? this.performFilter(this.listFilter) : this.movies;
    }
 
-  constructor(private dataService: DataService) {
+  constructor(public dataService: DataService) {
     this.filteredMovies = this.movies;
    // this.listFilter = 'Adam';
    }
@@ -46,8 +52,18 @@ export class HomeComponent implements OnInit {
     return this.movies.filter((movie: Movie) =>
       movie.movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
+
+onPageChange(pageVal: number) {
+  console.log ('changing pages');
+  console.log('change to page', pageVal);
+  this.dataService.mediaPageNumber = pageVal;
+  this.getMedia(this.selectedMedia);
+  this.dataService.mediaPageNumber = pageVal;
+}
 selectionMediaChanged(item) {
   console.log('Selected value: ' + item.value);
+  this.selectedMedia = item.value;
+  this.dataService.mediaPageNumber = 1;
   this.getMedia(item.value);
   // this.selectedMedia.forEach(i => console.log(`Included Item: ${i}`));
 }
@@ -73,6 +89,7 @@ getMedia(mediaType: string): void {
         next:  shows => {
           this.shows = shows;
           this.filteredShows = this.shows;
+          // console.log(response.headers.get('X-Total-Count'));
         },
         error: err => this.errorMessage = err
        // next(employees) { this.employees = employees } // shorthand, not working for me
@@ -84,5 +101,9 @@ getMedia(mediaType: string): void {
 
 ngOnInit(): void {
   this.getMedia('Movies');
+  // this.dataService.paginator = this.paginator;
   }
+
+ngAfterViewInit() {
+}
 }
