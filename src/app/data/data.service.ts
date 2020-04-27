@@ -65,7 +65,7 @@ export class DataService {
     public getMediaPoster(mediaType: string, mediaId: string): Observable<any> {
       console.log ('GETTING MEDIA POSTER');
       const mediaURL = 'https://api.themoviedb.org/3/movie/tt0137523?api_key=28f6a9a21573b05a6f58676063b93231';
-      console.log ('mediaURL = ' + JSON.stringify(mediaURL));
+      console.log ('mediaURLTEST = ' + JSON.stringify(mediaURL));
       // const imdbObject = this.http.get<any>(mediaURL);
       // console.log ('imdbObject = ' + JSON.stringify(imdbObject));
       // const imdbObject = this.http.jsonp(mediaURL, 'callback');
