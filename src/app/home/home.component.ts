@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private searchField: FormControl;
   errorMessage: string;
   toggleOptions: Array<string> = ['Movies', 'Shows'];
-  selectedMedia = 'Shows';
+  selectedMedia = 'Movies';
   isMovie = true;
   totalRecords = '1000';
   page = 1;
@@ -76,6 +76,7 @@ getMedia(mediaType: string): void {
         next:  movies => {
           this.movies = movies,
           this.filteredMovies = this.movies;
+          console.log('getting poster = ' + this.dataService.getMediaPoster('movie', '1234'));
         },
         error: err => this.errorMessage = err
        // next(employees) { this.employees = employees } // shorthand, not working for me

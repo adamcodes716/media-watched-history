@@ -7,6 +7,18 @@ import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams, HttpHeaders } 
 import { Movie } from './../home/movie';
 import { Show } from './../home/show';
 
+class SearchItem {
+  constructor(
+    public track: string,
+    public artist: string,
+    public link: string,
+    public thumbnail: string,
+    public artistId: string
+  ) {}
+}
+
+// results:  [] as any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,12 +41,10 @@ export class DataService {
 
   public getMovies(): Observable<Movie[]>
   {
-   // console.log ('getting page: ' + this.mediaPageNumber );
-   // console.log ('getting Movies: ' + this.apiMovieUrl );
-    console.log ('getting Page: ' + this.getMoviesURL() );
-    return this.http.get<Movie[]>(this.getMoviesURL(), this.httpOptions).pipe(
+     console.log ('getting Page: ' + this.getMoviesURL() );
+     return this.http.get<Movie[]>(this.getMoviesURL(), this.httpOptions).pipe(
      //  tap(data => console.log( data[0].movie.ids.imdb)),    // this works.  I need to pass this into a second service
-      tap(data => console.log('All:  ' + JSON.stringify(data))),
+    //  tap(data => console.log('All:  ' + JSON.stringify(data))),
      // tap (data => console.log ('Pages = ' + data.headers.getAll('x-total-count')),
       catchError (this.handleError)
       );
@@ -45,11 +55,24 @@ export class DataService {
     {
       return this.http.get<Show[]>(this.getShowsURL(), this.httpOptions).pipe(
        //  tap(data => console.log( data[0].show.ids.imdb)),    // this works.  I need to pass this into a second service
-        tap(data => console.log('All:  ' + JSON.stringify(data))),
+      //  tap(data => console.log('All:  ' + JSON.stringify(data))),
         catchError (this.handleError)
         );
         // mergeMap ( theID => this.http.get (this.apiUrl);
       }
+
+
+    public getMediaPoster(mediaType: string, mediaId: string): Observable<any> {
+      console.log ('GETTING MEDIA POSTER');
+      const mediaURL = 'https://api.themoviedb.org/3/movie/tt0137523?api_key=28f6a9a21573b05a6f58676063b93231';
+      console.log ('mediaURL = ' + JSON.stringify(mediaURL));
+      // const imdbObject = this.http.get<any>(mediaURL);
+      // console.log ('imdbObject = ' + JSON.stringify(imdbObject));
+      // const imdbObject = this.http.jsonp(mediaURL, 'callback');
+      const imdbObject = this.http.jsonp(mediaURL, 'callback');
+      console.log ('imdbObject = ' + JSON.stringify(imdbObject));
+      return imdbObject;
+    }
 
 getMoviesURL(){
   return 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=' + this.mediaPageNumber +
