@@ -4,7 +4,7 @@
   <div class="row">
     <div style="text-align: center;">
       <h1>
-        Welcome to What Adam's Watching
+        Adam's Playground
       </h1>
     </div>
   </div>
@@ -17,19 +17,10 @@
         <div class="left"><span></span></div>
       </div>
       <div class="col-xs-4 col-lg-4 d-flex justify-content-center">
-           <mat-button-toggle-group [(value)] = "selectedMedia" #group="matButtonToggleGroup" multiple=false>
-            <mat-button-toggle  *ngFor="let item of toggleOptions;" (change)="selectionMediaChanged($event)" [value]="item">{{item}}</mat-button-toggle>
-          </mat-button-toggle-group>
+       A place for Adam to show off his creations
       </div>
       <div class="col-xs-4 col-lg-4 d-flex flex-column-reverse">
-        <div class="input-group">
-          <input type="text" placeholder="search" [(ngModel)]="listFilter" />
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -38,106 +29,19 @@
 
 
 <div class="container">
-  <div>
     <div class="row">
-      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+      <div class="formGroup">
+  <br>Greetings!  This demo site is a work in progress.  At this time the main demo is the <a href="mediawatched">Media Watched</a> module.
+  This module pulls back my watch history from trak.tv and (very soon) will allow me to update my watch history from this site. <br>For more information on this site please go to <a href="https://AdamCodes716.com" target="_new">AdamCodes716.com</a>.
     </div>
-</div>
+    </div>
+
   <!-- This is the MOVIE card block-->
-  <div *ngIf="isMovie">
-  <div class="movie-card" *ngFor="let media of filteredMovies| paginate: { itemsPerPage: this.dataService.mediaItemsPerPage,
-    currentPage: this.dataService.mediaPageNumber, totalItems: 850 }">
-    <div
-      class="movie-header movie-cover"
-      style="background-image: url('./assets/images/comingsoon.jpg');"
-    >
-      <div class="header-icon-container">
-        <a href="#">
-          <i class="material-icons header-icon"></i>
-        </a>
-      </div>
-    </div>
-    <!--movie-header-->
-    <div class="movie-content">
-      <div class="movie-content-header">
-        <a href="{{ media.movie.trailer }}" target="_blank">
-          <h3 class="movie-title">{{ media.movie.title }}</h3>
-        </a>
-        <!--    <div class="imax-logo"></div> -->
-      </div>
-      <div class="movie-info">
-        <div class="info-section">
-          <label>Date Watched</label>
-          <span>{{ media.watched_at | date: "short" }}</span>
-        </div>
-        <!--date,time-->
-        <div class="info-section">
-          <label>Year</label>
-          <span>{{ media.movie.year }}</span>
-        </div>
-        <!--screen-->
-        <div class="info-section">
-          <label>Runtime</label>
-          <span>{{ media.movie.runtime }}</span>
-        </div>
-        <!--row-->
-        <div class="info-section">
-          <label>Community Rating</label>
-          <span>{{ media.movie.rating | number: "1.2-2" }}</span>
-        </div>
-        <!--seat-->
-      </div>
-    </div>
-    <!--movie-content-->
-  </div>
-  <!--movie-card-->
-  </div>
+
   <!--movie container-->
 
-   <!-- This is the TV SHow card block-->
-   <div *ngIf="!isMovie">
-     Bug:  small glitch in the pagination in this area.  Working on it!
-    <div class="movie-card" *ngFor="let media of filteredShows">
-      <div
-        class="movie-header movie-cover"
-        style="background-image: url('./assets/images/comingsoon.jpg');"
-      >
-        <div class="header-icon-container">
-          <a href="#">
-            <i class="material-icons header-icon"></i>
-          </a>
-        </div>
-      </div>
-      <!--movie-header-->
-      <div class="movie-content">
-        <div class="movie-content-header">
-          <a href="" target="_blank">
-            <h3 class="movie-title">{{ media.show.title }}</h3>
-          </a>
-          <!--    <div class="imax-logo"></div> -->
-        </div>
-        <div class="movie-info">
-          <div class="info-section">
-            <label>Date Watched</label>
-            <span>{{ media.watched_at | date: "short" }}</span>
-          </div>
-          <!--date,time-->
-          <div class="info-section">
-            <label>Episode</label>
-            <span>S{{ media.episode.season }}E{{ media.episode.number }}</span>
-          </div>
-          <!--screen-->
-          <div class="info-section">
-            <label>Title</label>
-            <span>{{ media.episode.title }}</span>
-          </div>
-          <!--seat-->
-        </div>
-      </div>
-      <!--movie-content-->
-    </div>
-    <!--movie-card-->
-    </div>
+
     <!--tv show container-->
 </div>
 <!--container-->
+<app-footer></app-footer>

@@ -1,11 +1,11 @@
-import { GlobalConstants } from './../common/global-constants';
+import { GlobalConstants } from '../common/global-constants';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap, map, mergeMap } from 'rxjs/operators';
 import { HttpClient, HttpResponse, HttpErrorResponse, HttpParams, HttpHeaders } from '@angular/common/http';
 
-import { Movie } from './../home/movie';
-import { Show } from './../home/show';
+import { Movie } from '../media-watched/movie';
+import { Show } from '../media-watched/show';
 
 class SearchItem {
   constructor(
@@ -22,7 +22,7 @@ class SearchItem {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class MediaWatchedDataService {
 
   constructor(private http: HttpClient) { }
   // private apiUrl = 'assets/movies.json';
