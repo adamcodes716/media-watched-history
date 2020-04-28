@@ -26,7 +26,7 @@ export class MediaWatchedDataService {
 
   constructor(private http: HttpClient) { }
   // private apiUrl = 'assets/movies.json';
-  mediaItemsPerPage = 8;
+  mediaItemsPerPage = '8';
   mediaPageNumber = 1;
 
   httpOptions = {
@@ -77,11 +77,11 @@ export class MediaWatchedDataService {
 
 getMoviesURL(){
   return 'https://api.trakt.tv/users/AdamMorgan/history/movies?page=' + this.mediaPageNumber +
-  '&limit=' + this.mediaItemsPerPage + ' &extended=full';
+  '&limit=' + this.mediaItemsPerPage + '&extended=full';
 }
 getShowsURL(){
   return 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=' + this.mediaPageNumber +
-  '&limit=' + this.mediaItemsPerPage + ' &extended=metadata';
+  '&limit=' + this.mediaItemsPerPage + '&extended=metadata';
 }
 
  private handleError(err: HttpErrorResponse) {
