@@ -31,6 +31,7 @@ export class MediaWatchedDataService {
 
   httpOptions = {
     headers: new HttpHeaders({
+    //  'Content-Type' : 'application/x-www-form-urlencoded',
       'Content-type': 'application/json',
       'trakt-api-key': '8d0b9d98f8afbc43ff3e13aad2a3e720982e9f36da0a6fe71a5dee30b8efb6e3',
       'trakt-api-version' : '2'

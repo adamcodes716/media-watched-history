@@ -9,6 +9,8 @@ import { ErrorComponent } from './error/error.component';
     imports: [
         RouterModule.forRoot([
             { path: '' , component: HomeComponent},
+            { path: '#' , component: HomeComponent},
+            { path: 'home' , component: HomeComponent},
             { path: 'mediawatched' , component: MediaWatchedComponent },
             { path: '**' , component: ErrorComponent }
         ])
