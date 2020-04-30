@@ -77,6 +77,13 @@ getMedia(mediaType: string): void {
           this.movies = movies,
           this.filteredMovies = this.movies;
           console.log('getting poster = ' + this.mediaWatchedDataService.getMediaPoster('movie', '1234'));
+          this.mediaWatchedDataService.getMediaPoster('movie', this.movies[0].movie.ids.tmdb).subscribe({
+            next:  data => {
+              console.log(this.movies[0].movie.ids.tmdb);
+      },
+        });
+
+
         },
         error: err => this.errorMessage = err
        // next(employees) { this.employees = employees } // shorthand, not working for me
