@@ -13,11 +13,14 @@ export class Movie {
           slug: string
         },
           title: string,
+          tagline: string,
           year: string,
           released: string,
           runtime: number,
           rating: number,
-          trailer: string
+          trailer: string,
+          overview: string,
+          genres: string
         };
 
 

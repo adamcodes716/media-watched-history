@@ -1,4 +1,27 @@
 export class Show {
+  // tslint:disable-next-line: variable-name
+  public watcher_count: string;
+  // tslint:disable-next-line: variable-name
+  public play_count: string;
+  // tslint:disable-next-line: variable-name
+  public collected_count: string;
+  // tslint:disable-next-line: variable-name
+  public collector_count: string;
+  public show?: {
+    title: string;
+    year: string;
+    ids: {
+      trakt: string;
+      tvdb: string;
+      imdb: string;
+      tmdb: string;
+      tvrage: string;
+    };
+  };
+}
+
+
+export class ZShow {
   public id: string;
   public action: string;
   public type: string;
@@ -12,7 +35,7 @@ export class Show {
       tmdb: string;
       tvrage: string;
     };
-    season: number;
+    season?: number;
     number: number;
     released: string;
     title: number;

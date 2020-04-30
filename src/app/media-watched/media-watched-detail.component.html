@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class='card' *ngIf='mediaMovie'>
+
+    <div class='card-header'>
+     <b> {{ mediaMovie.movie.title }}</b> : {{ mediaMovie.movie.tagline }}
+    </div>
+
+    <div class="zcard-header">
+      <div class="row">
+        <div class="col-md-2">
+          <div class="info-section">
+
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="justify-content-right">
+            <div class="movie-card">
+              <div class="movie-header movie-cover" [ngStyle]="{'background-image': 'url(' + moviePosterUrl + ')'}">
+                <div class="header-icon-container">
+                </div>
+              </div>
+              <!--movie-header-->
+              <div class="movie-content">
+                <div class="movie-content-header">
+                  <a [routerLink]="['/mediatwatched', mediaMovie.movie.ids.tmdb]">
+                    <h3 class="movie-title">{{ mediaMovie.movie.title }}</h3>
+                  </a>
+                  <!--    <div class="imax-logo"></div> -->
+                </div>
+                <div class="movie-info">
+                  <div class="info-section">
+                    <label>Release Date</label>
+                    <span>{{ mediaMovie.movie.released | date: "shortDate" }}</span>
+                  </div>
+                  <!--date,time-->
+                  <div class="info-section">
+                    <label>Year</label>
+                    <span>{{ mediaMovie.movie.year }}</span>
+                  </div>
+                  <!--screen-->
+                  <div class="info-section">
+                    <label>Runtime</label>
+                    <span>{{ mediaMovie.movie.runtime }} minutes</span>
+                  </div>
+                  <!--row-->
+                  <div class="info-section">
+                    <label>Community Rating</label>
+                    <span>{{ mediaMovie.movie.rating | number: "1.2-2" }}</span>
+                  </div>
+                  <!--seat-->
+                </div>
+              </div>
+              <!--movie-content-->
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-7 ">
+          <div class="row">
+            <div class="col-md-6 d-flex justify-content-right">
+              <div class="zinfo-section d-flex zjustify-content-left" style="padding-top: 50px">
+                <strong> <span class="label bold label-default">Summary: </span></strong> &nbsp;&nbsp;
+                <span>{{ mediaMovie.movie.overview }}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 d-flex justify-content-right">
+              <div class="zinfo-section d-flex zjustify-content-left" style="padding-top: 50px">
+                <strong> <span class="label bold label-default">Genres: </span></strong> &nbsp;&nbsp;
+                <span>{{ mediaMovie.movie.genres }}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 d-flex justify-content-right">
+              <div class="zinfo-section d-flex zjustify-content-left" style="padding-top: 50px">
+                <strong> <span class="label bold label-default">Trailer: </span></strong> &nbsp;&nbsp;
+                <span><a href="{{ mediaMovie.movie.trailer }}" target="_new">Click</a></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class='card-footer'>
+      <button class='btn btn-outline-secondary' (click)='onBack()' style='width:80px'>
+        <i class='fa fa-chevron-left'></i> Back
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

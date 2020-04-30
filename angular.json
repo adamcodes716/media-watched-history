@@ -67,7 +67,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "media-watched-history:build:production"
+              "browserTarget": "media-watched-history:build:production",
+              "proxyConfig": "src/proxy.conf.json"
             }
           }
         },

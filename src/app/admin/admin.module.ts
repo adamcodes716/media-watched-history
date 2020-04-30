@@ -8,37 +8,37 @@ import { AdminMenuComponent } from './adminMenu/admin-menu.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './signUp/sign-up.component';
 
-import { UserService } from './adminShared/user.service';
+// import { UserService } from './adminShared/user.service';
 
-const AdminRoutes: Routes = [
-    {
-        path: 'admin',
-        component: AdminComponent,
-        children: [
-            { path: 'login', component: LoginComponent },
-            { path: 'signup', component: SignUpComponent },
-            { path: '', component: AdminMenuComponent, canActivate: [UserService] }  // CanActivate is a route guard
-        ]
-    },
-];
-@NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        RouterModule.forChild(AdminRoutes)
-    ],
-    exports: [
-        RouterModule
-    ],
-    declarations: [
-        AdminComponent,
-        AdminMenuComponent,
-        LoginComponent,
-        SignUpComponent
-    ],
-    providers: [
-        UserService,
-    ]
-})
-export class AdminModule {}
+// const AdminRoutes: Routes = [
+//    {
+//        path: 'admin',
+//        component: AdminComponent,
+//        children: [
+//            { path: 'login', component: LoginComponent },
+//            { path: 'signup', component: SignUpComponent },
+//            { path: '', component: AdminMenuComponent, canActivate: [UserService] }  // CanActivate is a route guard
+//        ]
+//    },
+// ];
+// @NgModule({
+//    imports: [
+//        CommonModule,
+//        FormsModule,
+//        RouterModule.forChild(AdminRoutes)
+//    ],
+//    exports: [
+//        RouterModule
+//    ],
+//    declarations: [
+//        AdminComponent,
+//        AdminMenuComponent,
+//        LoginComponent,
+//        SignUpComponent
+//    ],
+//    providers: [
+//        UserService,
+//    ]
+//  })
+// export class AdminModule {}
 

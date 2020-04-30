@@ -4,7 +4,7 @@
   <div class="row">
     <div style="text-align: center;">
       <h1>
-        Welcome to What Adam Has Watched
+        Welcome to What <s>Adam</s> The Community Has Watched
       </h1>
     </div>
   </div>
@@ -23,7 +23,7 @@
       </div>
       <div class="col-xs-4 col-lg-4 d-flex flex-column-reverse">
         <div class="input-group">
-          <input type="text" placeholder="search" [(ngModel)]="listFilter" />
+          <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
           <div class="input-group-btn">
             <button class="btn btn-default" type="submit">
               <span class="glyphicon glyphicon-search"></span>
@@ -52,15 +52,14 @@
       style="background-image: url('./assets/images/comingsoon.jpg');"
     >
       <div class="header-icon-container">
-        <a href="#">
-          <i class="material-icons header-icon"></i>
+        <a [routerLink]="['/mediatwatched', media.movie.ids.tmdb]" >
         </a>
       </div>
     </div>
     <!--movie-header-->
     <div class="movie-content">
       <div class="movie-content-header">
-        <a href="{{ media.movie.trailer }}" target="_blank">
+        <a [routerLink]="['/media', media.movie.ids.tmdb]" >
           <h3 class="movie-title">{{ media.movie.title }}</h3>
         </a>
         <!--    <div class="imax-logo"></div> -->
@@ -96,10 +95,9 @@
 
    <!-- This is the TV SHow card block-->
    <div *ngIf="!isMovie">
-     <div style="text-align: center;">
-     Bug:  small glitch in the pagination in this area.  Working on it!
-    </div>
-    <div class="movie-card" *ngFor="let media of filteredShows">
+    <!--<div class="movie-card" *ngFor="let media of filteredShows"> -->
+      <div class="movie-card" *ngFor="let media of filteredShows| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
+        currentPage: this.mediaWatchedDataService.mediaPageNumber, totalItems: 20 }">
       <div
         class="movie-header movie-cover"
         style="background-image: url('./assets/images/comingsoon.jpg');"
@@ -118,21 +116,39 @@
           </a>
           <!--    <div class="imax-logo"></div> -->
         </div>
-        <div class="movie-info">
+       <div class="movie-info">
+        <div class="info-section">
+          <label>Watcher Count</label>
+          <span>{{ media.watcher_count }}</span>
+        </div>
+        <div class="info-section">
+          <label>Year</label>
+          <span>{{ media.show.year }}</span>
+        </div>
+        <div class="info-section">
+          <label>Collected</label>
+          <span>{{ media.collected_count }}</span>
+        </div>
+       <!--
           <div class="info-section">
             <label>Date Watched</label>
             <span>{{ media.watched_at | date: "short" }}</span>
           </div>
+      -->
           <!--date,time-->
+      <!--
           <div class="info-section">
             <label>Episode</label>
             <span>S{{ media.episode.season }}E{{ media.episode.number }}</span>
           </div>
+        -->
           <!--screen-->
+      <!--
           <div class="info-section">
             <label>Title</label>
             <span>{{ media.episode.title }}</span>
           </div>
+      -->
           <!--seat-->
         </div>
       </div>
