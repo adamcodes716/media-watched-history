@@ -1,5 +1,4 @@
 import { GlobalConstants } from '../common/global-constants';
-
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MediaWatchedDataService } from '../media-watched/media-watched-data.service';
 import { Observable } from 'rxjs';
@@ -9,6 +8,9 @@ import { catchError, tap } from 'rxjs/operators';
 import { Movie } from './movie';
 import { Show } from './show';
 import { ChangeDetectionStrategy,  Input} from '@angular/core';
+import { concatMap, switchMap, take, toArray, map } from 'rxjs/operators';
+import { from } from 'rxjs';
+
 // import { PaginationInstance } from 'ngx-pagination';
 
 
@@ -30,6 +32,7 @@ export class MediaWatchedComponent implements OnInit, AfterViewInit {
   isMovie = true;
   totalRecords = '1000';
   page = 1;
+  poster: string;
   // listFilter = '';
 
   // tslint:disable-next-line: variable-name
@@ -54,14 +57,14 @@ export class MediaWatchedComponent implements OnInit, AfterViewInit {
 }
 
 onPageChange(pageVal: number) {
-  console.log ('changing pages');
-  console.log('change to page', pageVal);
+ // console.log ('changing pages');
+ // console.log('change to page', pageVal);
   this.mediaWatchedDataService.mediaPageNumber = pageVal;
   this.getMedia(this.selectedMedia);
   this.mediaWatchedDataService.mediaPageNumber = pageVal;
 }
 selectionMediaChanged(item) {
-  console.log('Selected value: ' + item.value);
+ // console.log('Selected value: ' + item.value);
   this.selectedMedia = item.value;
   this.mediaWatchedDataService.mediaPageNumber = 1;
   this.getMedia(item.value);
@@ -71,28 +74,38 @@ selectionMediaChanged(item) {
 getMedia(mediaType: string): void {
    if (mediaType === 'Movies') {
      this.isMovie = true;
-     console.log (`Media = ${mediaType}`);
-     this.mediaWatchedDataService.getMovies().subscribe({
-        next:  movies => {
-          this.movies = movies,
-          this.filteredMovies = this.movies;
-          console.log('getting poster = ' + this.mediaWatchedDataService.getMediaPoster('movie', '1234'));
-          this.mediaWatchedDataService.getMediaPoster('movie', this.movies[0].movie.ids.tmdb).subscribe({
-            next:  data => {
-              console.log(this.movies[0].movie.ids.tmdb);
-      },
-        });
-
-
-        },
-        error: err => this.errorMessage = err
-       // next(employees) { this.employees = employees } // shorthand, not working for me
-       //  console.log('getting employee');
-       //  return new Employee(item.id, item.name, item.status );
-       });
+     // console.log (`Media = ${mediaType}`);
+     this.mediaWatchedDataService.getMovies()
+     .pipe(
+     // Receive an array of posts
+      // Use "from" emit each value one by one
+     switchMap((posts: Movie[]) => from(posts)),
+     // Take(10) to avoid too many requests
+      take(10),
+     // For each movie, fetch the movie poster from tmdb
+     // concatMap((post: Movie) => this.http.get(`${this.url}/${post.id}/comments`)
+     concatMap((post: Movie) => this.mediaWatchedDataService.getMediaPoster('movie', post.movie.ids.tmdb)
+        .pipe(
+         map((comments: MoviePosterInterface) => comments)
+         ),
+        // Use result selector function to add poster in the post object
+        (post: Movie, comments: MoviePosterInterface) => {
+          const postWithComments: MovieWithPoster = {...post, comments};
+          return postWithComments;
+        }
+     ),
+     // Aggregates all the posts in an array
+     toArray()
+     )
+         .subscribe((postsWithComments: MovieWithPoster[]) => {
+          // console.log(postsWithComments);
+           this.movies = postsWithComments;
+           this.filteredMovies = postsWithComments;
+         }
+       );
    } else {
      this.isMovie = false;
-     console.log (`Media = ${mediaType}`);
+     // console.log (`Media = ${mediaType}`);
      this.mediaWatchedDataService.getShows().subscribe({
         next:  shows => {
           this.shows = shows;
@@ -107,6 +120,10 @@ getMedia(mediaType: string): void {
     }
 }
 
+getPosterUrl(path: string){
+  return 'url(\'https://image.tmdb.org/t/p/w500/' + path + '\')';
+}
+
 ngOnInit(): void {
   this.getMedia(this.selectedMedia);
   // this.dataService.paginator = this.paginator;
@@ -114,4 +131,13 @@ ngOnInit(): void {
 
 ngAfterViewInit() {
 }
+}
+
+interface MovieWithPoster extends Movie {
+  comments: MoviePosterInterface;
+}
+
+interface MoviePosterInterface {
+  poster_path: string;
+  homepage: string;
 }

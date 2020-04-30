@@ -78,7 +78,7 @@ export class MediaWatchedDataService {
 
 
     public getMediaPoster(mediaType: string, mediaId: string): Observable<any> {
-      console.log ('GETTING MEDIA POSTER');
+      // console.log ('GETTING MEDIA POSTER');
       const mediaURL = 'https://api.themoviedb.org/3/' + mediaType + '/' + mediaId + '?api_key=28f6a9a21573b05a6f58676063b93231';
       // return this.http.jsonp(mediaURL, 'callback');
       return this.http.get(mediaURL);

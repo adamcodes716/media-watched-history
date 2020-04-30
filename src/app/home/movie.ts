@@ -1,4 +1,4 @@
-export class Movie {
+export class Movie11 {
 
   public id: string;
   public action: string;
@@ -18,10 +18,35 @@ export class Movie {
           runtime: number,
           rating: number,
           trailer: string
-        };
+     };
+
 
 
  // constructor(title: string, year: string, released: string, url: string, trailer: string, runtime: string, tagline: string,
 // overview: string, certification: string, imdb_id: string, tmdb_id: string, images: string, genres: string, ratings: string) {}
 
 }
+
+interface Movie {
+  id: string;
+  action: string;
+  type: string;
+  // tslint:disable-next-line: variable-name
+  watched_at: string;
+  movie?:
+        { ids: {
+          trakt: string,
+          tmdb: string,
+          imdb: string,
+          slug: string
+        },
+          title: string,
+          year: string,
+          released: string,
+          runtime: number,
+          rating: number,
+          trailer: string
+     };
+}
+
+
