@@ -36,15 +36,22 @@ export class MediaWatchedDetailComponent implements OnInit {
     // this.mediaWatchedDataService.getMovies().subscribe({
       next:  movie => {
         this.mediaMovie = movie[0];
+        this.mediaWatchedDataService.getMediaPoster('movie', id.toString()).subscribe({
+           next:  data => {
+          console.log (data.poster_path);
+          this.moviePosterUrl = ('https://image.tmdb.org/t/p/w500/' + data.poster_path);
+          this.moviePoster = data;
+     },
+       });
       },
      });
-    this.mediaWatchedDataService.getMediaPoster('movie', id.toString()).subscribe({
-    next:  data => {
-      console.log (data.poster_path);
-      this.moviePosterUrl = ('https://image.tmdb.org/t/p/w500/' + data.poster_path);
-      this.moviePoster = data;
-     },
-   });
+    // this.mediaWatchedDataService.getMediaPoster('movie', id.toString()).subscribe({
+    // next:  data => {
+    //  console.log (data.poster_path);
+    //  this.moviePosterUrl = ('https://image.tmdb.org/t/p/w500/' + data.poster_path);
+    //  this.moviePoster = data;
+    // },
+   // });
 
   }
 
