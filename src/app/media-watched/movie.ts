@@ -28,3 +28,25 @@ export class Movie {
 // overview: string, certification: string, imdb_id: string, tmdb_id: string, images: string, genres: string, ratings: string) {}
 
 }
+
+interface MovieInterface {
+  id: string;
+  action: string;
+  type: string;
+  // tslint:disable-next-line: variable-name
+  watched_at: string;
+  movie?:
+        { ids: {
+          trakt: string,
+          tmdb: string,
+          imdb: string,
+          slug: string
+        },
+          title: string,
+          year: string,
+          released: string,
+          runtime: number,
+          rating: number,
+          trailer: string
+     };
+}

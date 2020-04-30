@@ -106,17 +106,46 @@ getMedia(mediaType: string): void {
    } else {
      this.isMovie = false;
      // console.log (`Media = ${mediaType}`);
-     this.mediaWatchedDataService.getShows().subscribe({
-        next:  shows => {
-          this.shows = shows;
-          this.filteredShows = this.shows;
-          // console.log(response.headers.get('X-Total-Count'));
-        },
-        error: err => this.errorMessage = err
+     this.mediaWatchedDataService.getShows()
+     .pipe(
+      // Receive an array of posts
+       // Use "from" emit each value one by one
+      switchMap((posts: Show[]) => from(posts)),
+      // Take(10) to avoid too many requests
+       take(10),
+      // For each movie, fetch the movie poster from tmdb
+      // concatMap((post: Movie) => this.http.get(`${this.url}/${post.id}/comments`)
+      concatMap((post: Show) => this.mediaWatchedDataService.getMediaPoster('tv', post.show.ids.tmdb)
+         .pipe(
+          map((comments: MoviePosterInterface) => comments)
+          ),
+         // Use result selector function to add poster in the post object
+         (post: Show, comments: MoviePosterInterface) => {
+           const postWithComments: ShowWithPoster = {...post, comments};
+           return postWithComments;
+         }
+      ),
+      // Aggregates all the posts in an array
+      toArray()
+      )
+          .subscribe((postsWithComments: ShowWithPoster[]) => {
+           // console.log(postsWithComments);
+            this.shows = postsWithComments;
+            this.filteredShows = postsWithComments;
+          }
+        );
+
+     // .subscribe({
+     //   next:  shows => {
+     //     this.shows = shows;
+     //     this.filteredShows = this.shows;
+     //     // console.log(response.headers.get('X-Total-Count'));
+     //   },
+     //   error: err => this.errorMessage = err
        // next(employees) { this.employees = employees } // shorthand, not working for me
        //  console.log('getting employee');
        //  return new Employee(item.id, item.name, item.status );
-       });
+     //  });
     }
 }
 
@@ -134,6 +163,10 @@ ngAfterViewInit() {
 }
 
 interface MovieWithPoster extends Movie {
+  comments: MoviePosterInterface;
+}
+
+interface ShowWithPoster extends Show {
   comments: MoviePosterInterface;
 }
 

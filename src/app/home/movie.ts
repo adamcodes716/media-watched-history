@@ -27,7 +27,7 @@ export class Movie11 {
 
 }
 
-interface Movie {
+interface Movie1 {
   id: string;
   action: string;
   type: string;

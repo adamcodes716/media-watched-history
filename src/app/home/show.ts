@@ -1,4 +1,4 @@
-export class Show {
+export class Show1 {
   public id: string;
   public action: string;
   public type: string;

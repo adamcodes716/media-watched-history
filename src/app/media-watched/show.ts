@@ -1,3 +1,25 @@
+interface ShowInterface {
+   // tslint:disable-next-line: variable-name
+   watcher_count: string;
+   // tslint:disable-next-line: variable-name
+   play_count: string;
+   // tslint:disable-next-line: variable-name
+   collected_count: string;
+   // tslint:disable-next-line: variable-name
+   collector_count: string;
+   show?: {
+     title: string;
+     year: string;
+     ids: {
+       trakt: string;
+       tvdb: string;
+       imdb: string;
+       tmdb: string;
+       tvrage: string;
+     };
+   };
+}
+
 export class Show {
   // tslint:disable-next-line: variable-name
   public watcher_count: string;

@@ -42,7 +42,7 @@ export class MediaWatchedDataService {
 
   public getMovies(): Observable<Movie[]>
   {
-     console.log ('getting Page: ' + this.getMoviesURL() );
+     // console.log ('getting Page: ' + this.getMoviesURL() );
      const searchUrl = `https://api.trakt.tv/search/tmdb/441393?type=movie&extended=full`;
      return this.http.get<Movie[]>(this.getMoviesURL(), this.httpOptions).pipe(
     // return this.http.get<Movie[]>(searchUrl, this.httpOptions).pipe(
