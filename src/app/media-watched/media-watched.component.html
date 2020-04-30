@@ -17,11 +17,32 @@
         <div class="left"><span></span></div>
       </div>
       <div class="col-xs-4 col-lg-4 d-flex justify-content-center">
-           <mat-button-toggle-group [(value)] = "selectedMedia" #group="matButtonToggleGroup" multiple=false>
-            <mat-button-toggle  *ngFor="let item of toggleOptions;" (change)="selectionMediaChanged($event)" [value]="item">{{item}}</mat-button-toggle>
-          </mat-button-toggle-group>
+        <mat-button-toggle-group [(value)]="selectedMedia" #group="matButtonToggleGroup" multiple=false>
+          <mat-button-toggle *ngFor="let item of toggleOptions;" (change)="selectionMediaChanged($event)"
+            [value]="item">{{item}}</mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
       <div class="col-xs-4 col-lg-4 d-flex flex-column-reverse">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div>
+
+  </div>
+  <!-- This is the MOVIE card block-->
+  <div *ngIf="isMovie">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+      </div>
+      <div class="col-md-4">
         <div class="input-group">
           <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
           <div class="input-group-btn">
@@ -32,76 +53,76 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-
-<div class="container">
-  <div>
-    <div class="row">
-      <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
-    </div>
-</div>
-  <!-- This is the MOVIE card block-->
-  <div *ngIf="isMovie">
-  <div class="movie-card" *ngFor="let media of filteredMovies| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
+    <div class="movie-card" *ngFor="let media of filteredMovies| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
     currentPage: this.mediaWatchedDataService.mediaPageNumber, totalItems: 850 }">
-    <div
-      class="movie-header movie-cover"
-      [ngStyle]="{'background-image': getPosterUrl( media.comments.poster_path)}"
-    >
-      <div class="header-icon-container">
-        <a [routerLink]="['/mediatwatched', media.movie.ids.tmdb]" >
-        </a>
+      <div class="movie-header movie-cover" [ngStyle]="{'background-image': getPosterUrl( media.comments.poster_path)}">
+        <div class="header-icon-container">
+          <a [routerLink]="['/mediatwatched', media.movie.ids.tmdb]">
+          </a>
+        </div>
       </div>
+      <!--movie-header-->
+      <div class="movie-content">
+        <div class="movie-content-header">
+          <a [routerLink]="['/media', media.movie.ids.tmdb]">
+            <h3 class="movie-title">{{ media.movie.title }}</h3>
+          </a>
+          <!--    <div class="imax-logo"></div> -->
+        </div>
+        <div class="movie-info">
+          <div class="info-section">
+            <label>Date Watched</label>
+            <span>{{ media.watched_at | date: "short" }}</span>
+          </div>
+          <!--date,time-->
+          <div class="info-section">
+            <label>Year</label>
+            <span>{{ media.movie.year }}</span>
+          </div>
+          <!--screen-->
+          <div class="info-section">
+            <label>Runtime</label>
+            <span>{{ media.movie.runtime }}</span>
+          </div>
+          <!--row-->
+          <div class="info-section">
+            <label>Community Rating</label>
+            <span>{{ media.movie.rating | number: "1.2-2" }}</span>
+          </div>
+          <!--seat-->
+        </div>
+      </div>
+      <!--movie-content-->
     </div>
-    <!--movie-header-->
-    <div class="movie-content">
-      <div class="movie-content-header">
-        <a [routerLink]="['/media', media.movie.ids.tmdb]" >
-          <h3 class="movie-title">{{ media.movie.title }}</h3>
-        </a>
-        <!--    <div class="imax-logo"></div> -->
-      </div>
-      <div class="movie-info">
-        <div class="info-section">
-          <label>Date Watched</label>
-          <span>{{ media.watched_at | date: "short" }}</span>
-        </div>
-        <!--date,time-->
-        <div class="info-section">
-          <label>Year</label>
-          <span>{{ media.movie.year }}</span>
-        </div>
-        <!--screen-->
-        <div class="info-section">
-          <label>Runtime</label>
-          <span>{{ media.movie.runtime }}</span>
-        </div>
-         <!--row-->
-        <div class="info-section">
-          <label>Community Rating</label>
-          <span>{{ media.movie.rating | number: "1.2-2" }}</span>
-        </div>
-        <!--seat-->
-      </div>
-    </div>
-    <!--movie-content-->
-  </div>
-  <!--movie-card-->
+    <!--movie-card-->
   </div>
   <!--movie container-->
 
-   <!-- This is the TV SHow card block-->
-   <div *ngIf="!isMovie">
+  <!-- This is the TV SHow card block-->
+  <div *ngIf="!isMovie">
+
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4">
+        <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!--<div class="movie-card" *ngFor="let media of filteredShows"> -->
-      <div class="movie-card" *ngFor="let media of filteredShows| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
+    <div class="movie-card" *ngFor="let media of filteredShows| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
         currentPage: this.mediaWatchedDataService.mediaPageNumber, totalItems: 20 }">
-      <div
-        class="movie-header movie-cover"
-        [ngStyle]="{'background-image': getPosterUrl( media.comments.poster_path)}"
-      >
+      <div class="movie-header movie-cover" [ngStyle]="{'background-image': getPosterUrl( media.comments.poster_path)}">
         <div class="header-icon-container">
           <a href="#">
             <i class="material-icons header-icon"></i>
@@ -116,34 +137,34 @@
           </a>
           <!--    <div class="imax-logo"></div> -->
         </div>
-       <div class="movie-info">
-        <div class="info-section">
-          <label>Watcher Count</label>
-          <span>{{ media.watcher_count }}</span>
-        </div>
-        <div class="info-section">
-          <label>Year</label>
-          <span>{{ media.show.year }}</span>
-        </div>
-        <div class="info-section">
-          <label>Collected</label>
-          <span>{{ media.collected_count }}</span>
-        </div>
-       <!--
+        <div class="movie-info">
+          <div class="info-section">
+            <label>Watcher Count</label>
+            <span>{{ media.watcher_count }}</span>
+          </div>
+          <div class="info-section">
+            <label>Year</label>
+            <span>{{ media.show.year }}</span>
+          </div>
+          <div class="info-section">
+            <label>Collected</label>
+            <span>{{ media.collected_count }}</span>
+          </div>
+          <!--
           <div class="info-section">
             <label>Date Watched</label>
             <span>{{ media.watched_at | date: "short" }}</span>
           </div>
       -->
           <!--date,time-->
-      <!--
+          <!--
           <div class="info-section">
             <label>Episode</label>
             <span>S{{ media.episode.season }}E{{ media.episode.number }}</span>
           </div>
         -->
           <!--screen-->
-      <!--
+          <!--
           <div class="info-section">
             <label>Title</label>
             <span>{{ media.episode.title }}</span>
@@ -155,8 +176,8 @@
       <!--movie-content-->
     </div>
     <!--movie-card-->
-    </div>
-    <!--tv show container-->
+  </div>
+  <!--tv show container-->
 </div>
 <!--container-->
 <app-footer></app-footer>
