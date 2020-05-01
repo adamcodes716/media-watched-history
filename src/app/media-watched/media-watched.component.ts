@@ -1,7 +1,7 @@
 import { GlobalConstants } from '../common/global-constants';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MediaWatchedDataService } from '../media-watched/media-watched-data.service';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ReactiveFormsModule, FormControl, FormsModule } from '@angular/forms';
 import { catchError, tap } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { Show } from './show';
 import { ChangeDetectionStrategy,  Input} from '@angular/core';
 import { concatMap, switchMap, take, toArray, map } from 'rxjs/operators';
 import { from } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 // import { PaginationInstance } from 'ngx-pagination';
 
@@ -19,7 +20,7 @@ import { from } from 'rxjs';
   templateUrl: './media-watched.component.html',
   styleUrls: ['./media-watched.component.scss']
 })
-export class MediaWatchedComponent implements OnInit, AfterViewInit {
+export class MediaWatchedComponent implements OnInit {
   pageTitle = 'Movie Stuff';
   movies: Movie[];  // same as  new Array<Movies>();
   shows: Show[];
@@ -33,28 +34,28 @@ export class MediaWatchedComponent implements OnInit, AfterViewInit {
   totalRecords = '1000';
   page = 1;
   poster: string;
+  searchBoxField: string;
   // listFilter = '';
 
   // tslint:disable-next-line: variable-name
-  _listFilter: string;
-   get listFilter(): string {
-   return this._listFilter;
-   }
-   set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredMovies = this.listFilter ? this.performFilter(this.listFilter) : this.movies;
-   }
+  // _listFilter: string;
+  //  get listFilter(): string {
+ //  return this._listFilter;
+  //  }
+  // set listFilter(value: string) {
+  //  this._listFilter = value;
+  //  this.filteredMovies = this.listFilter ? this.performFilter(this.listFilter) : this.movies;
+  // }
 
   constructor(public mediaWatchedDataService: MediaWatchedDataService) {
     this.filteredMovies = this.movies;
-   // this.listFilter = 'Adam';
-   }
+  }
 
-   performFilter(filterBy: string): Movie[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.movies.filter((movie: Movie) =>
-      movie.movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
-}
+//   performFilter(filterBy: string): Movie[] {
+//    filterBy = filterBy.toLocaleLowerCase();
+//    return this.movies.filter((movie: Movie) =>
+//      movie.movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
+// }
 
 onPageChange(pageVal: number) {
  // console.log ('changing pages');
@@ -86,7 +87,7 @@ getMedia(mediaType: string): void {
      // concatMap((post: Movie) => this.http.get(`${this.url}/${post.id}/comments`)
      concatMap((post: Movie) => this.mediaWatchedDataService.getMediaPoster('movie', post.movie.ids.tmdb)
         .pipe(
-         map((comments: MoviePosterInterface) => comments)
+         map((comments: MoviePosterInterface) => comments),
          ),
         // Use result selector function to add poster in the post object
         (post: Movie, comments: MoviePosterInterface) => {
@@ -117,7 +118,7 @@ getMedia(mediaType: string): void {
       // concatMap((post: Movie) => this.http.get(`${this.url}/${post.id}/comments`)
       concatMap((post: Show) => this.mediaWatchedDataService.getMediaPoster('tv', post.show.ids.tmdb)
          .pipe(
-          map((comments: MoviePosterInterface) => comments)
+          map((comments: MoviePosterInterface) => comments),
           ),
          // Use result selector function to add poster in the post object
          (post: Show, comments: MoviePosterInterface) => {
@@ -135,17 +136,6 @@ getMedia(mediaType: string): void {
           }
         );
 
-     // .subscribe({
-     //   next:  shows => {
-     //     this.shows = shows;
-     //     this.filteredShows = this.shows;
-     //     // console.log(response.headers.get('X-Total-Count'));
-     //   },
-     //   error: err => this.errorMessage = err
-       // next(employees) { this.employees = employees } // shorthand, not working for me
-       //  console.log('getting employee');
-       //  return new Employee(item.id, item.name, item.status );
-     //  });
     }
 }
 
@@ -153,13 +143,33 @@ getPosterUrl(path: string){
   return 'url(\'https://image.tmdb.org/t/p/w500/' + path + '\')';
 }
 
+searchMedia(searchBoxValue: string){
+   console.log ('search on ' + searchBoxValue);
+   this.mediaWatchedDataService.searchedForItem = searchBoxValue;
+   this.getMedia(this.selectedMedia);
+}
+
+clearSearchField(){
+  this.searchBoxField = '';
+  this.mediaWatchedDataService.searchedForItem = '';
+  this.getMedia(this.selectedMedia);
+}
+private handleError(err: HttpErrorResponse) {
+  let errorMessage = '';
+  if (err.error instanceof ErrorEvent) {
+    errorMessage = `An error occurred: ${err.error.message}`;
+  } else {
+    errorMessage = `Server returned code ${err.status}, error message is ${err.message}`;
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+}
+
 ngOnInit(): void {
   this.getMedia(this.selectedMedia);
   // this.dataService.paginator = this.paginator;
   }
 
-ngAfterViewInit() {
-}
 }
 
 interface MovieWithPoster extends Movie {

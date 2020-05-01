@@ -14,7 +14,7 @@ interface ShowInterface {
        trakt: string;
        tvdb: string;
        imdb: string;
-       tmdb: string;
+       tmdb?: string;
        tvrage: string;
      };
    };

@@ -28,29 +28,32 @@
   </div>
 </div>
 
-
-
 <div class="container">
-  <div>
-
-  </div>
   <!-- This is the MOVIE card block-->
   <div *ngIf="isMovie">
     <div class="row">
       <div class="col-md-4">
       </div>
       <div class="col-md-4">
-        <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+        <div *ngIf="! this.mediaWatchedDataService.searchedForItem">
+          <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+        </div>
       </div>
       <div class="col-md-4">
+
         <div class="input-group">
-          <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </div>
+          <!--    <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />  -->
+          <input class="form-control" type="text" [(ngModel)]="searchBoxField" #searchBox
+            (keyup.enter)="this.searchMedia(searchBox.value)" placeholder="search" />
+          <span class="input-group-btn">
+            <div *ngIf="this.mediaWatchedDataService.searchedForItem">
+              &nbsp;
+              <button (click)="clearSearchField()" class="btn btn-primary" type="button" rounded="true" outline="true"
+                mdbWavesEffect>Clear</button>
+            </div>
+          </span>
         </div>
+
       </div>
     </div>
     <div class="movie-card" *ngFor="let media of filteredMovies| paginate: { itemsPerPage: this.mediaWatchedDataService.mediaItemsPerPage,
@@ -71,8 +74,12 @@
         </div>
         <div class="movie-info">
           <div class="info-section">
+            <!--
             <label>Date Watched</label>
             <span>{{ media.watched_at | date: "short" }}</span>
+            -->
+            <label>Genre</label>
+            <span>{{ media.movie.genres[0] }}</span>
           </div>
           <!--date,time-->
           <div class="info-section">
@@ -105,16 +112,23 @@
       <div class="col-md-4">
       </div>
       <div class="col-md-4">
+        <div *ngIf="! this.mediaWatchedDataService.searchedForItem">
         <pagination-controls (pageChange)="onPageChange($event)"></pagination-controls>
+        </div>
       </div>
       <div class="col-md-4">
-        <div class="input-group">
-          <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </div>
+         <div class="input-group">
+          <!-- this block throws error if tmdb id is empty   <input type="text" placeholder="search local store" [(ngModel)]="listFilter" />
+          <input class="form-control" type="text" [(ngModel)]="searchBoxField" #searchBox
+            (keyup.enter)="this.searchMedia(searchBox.value)" placeholder="search" />
+          <span class="input-group-btn">
+            <div *ngIf="this.mediaWatchedDataService.searchedForItem">
+              &nbsp;
+              <button (click)="clearSearchField()" class="btn btn-primary" type="button" rounded="true" outline="true"
+                mdbWavesEffect>Clear</button>
+            </div>
+          </span>
+        -->
         </div>
       </div>
     </div>
