@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h3 class="text-center my-4">Get PWS Weather Update:</h3>
+        <form
+          [formGroup]="weatherSearchForm"
+          (ngSubmit)="sendToAPIXU(weatherSearchForm.value)"
+        >
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              id="weatherLocation"
+              aria-describedby="weatherLocation"
+              placeholder="Enter a PWS Station (e.g. KNYGRAND4)"
+              formControlName="location"
+            />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success btn-md">
+              Search for the weather
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h3 class="text-center my-4">Weather Details:</h3>
+        <p class="text-center">
+          Current weather conditions: {{ this.weatherData?.observations[0].obsTimeLocal | date:'medium' }}
+        </p>
+        <p class="text-center">
+          Temperature: {{ this.weatherData?.observations[0].imperial.temp }} degrees
+        </p>
+        <p class="text-center">
+          Feels like in: {{ this.weatherData?.observations[0].imperial.windChill }} degrees
+        </p>
+        <p class="text-center">
+          Humidity: {{ this.weatherData?.observations[0].humidity }} degrees
+        </p>
+        <p class="text-center">
+          PWS Neighborhood: {{ this.weatherData?.observations[0].stationID }}, {{
+            this.weatherData?.observations[0].neighborhood }}.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+

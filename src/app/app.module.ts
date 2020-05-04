@@ -1,7 +1,9 @@
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MediaWatchedComponent } from './media-watched/media-watched.component';
 import { MediaWatchedDetailComponent } from './media-watched/media-watched-detail.component';
 import { AdminMenuComponent } from './admin/adminMenu/admin-menu.component';
+import { PwsComponent } from './pws/pws.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { AdminMenuComponent } from './admin/adminMenu/admin-menu.component';
     HomeComponent,
     ErrorComponent,
     MediaWatchedComponent,
-    MediaWatchedDetailComponent
+    MediaWatchedDetailComponent,
+    PwsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,8 @@ import { AdminMenuComponent } from './admin/adminMenu/admin-menu.component';
     FormsModule,
     MaterialModule,
     NgxPaginationModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'mediawatched' , component: MediaWatchedComponent },
       { path: 'mediawatched/:id' , component: MediaWatchedDetailComponent },
@@ -45,6 +51,7 @@ import { AdminMenuComponent } from './admin/adminMenu/admin-menu.component';
       { path: 'home' , component: HomeComponent},
       { path: 'admin', component: AdminMenuComponent},
       { path: 'admin/:id', component: AdminMenuComponent},
+      { path: 'weather', component: PwsComponent},
       { path: '' , component: HomeComponent},
       { path: '**' , component: ErrorComponent }
     ])
