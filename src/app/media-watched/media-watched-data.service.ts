@@ -95,9 +95,9 @@ export class MediaWatchedDataService {
       return `https://api.trakt.tv/search/movie?page=1&query=` + encodeURIComponent(this.searchedForItem) + `&limit=30&extended=full`;
     }
     else {
-     return `https://api.trakt.tv/movies/played?page=${this.mediaPageNumber}&limit=${this.mediaItemsPerPage}&extended=full`;
-     // return `https://api.trakt.tv/users/AdamMorgan/history/movies?page=${this.mediaPageNumber}
-     // &limit=${this.mediaItemsPerPage}&extended=full`;
+     // return `https://api.trakt.tv/movies/played?page=${this.mediaPageNumber}&limit=${this.mediaItemsPerPage}&extended=full`;
+      return `https://api.trakt.tv/users/AdamMorgan/history/movies?page=${this.mediaPageNumber}
+      &limit=${this.mediaItemsPerPage}&extended=full`;
     }
  }
 getShowsURL(){
@@ -107,9 +107,9 @@ getShowsURL(){
     return `https://api.trakt.tv/search/show?page=1&query=` + encodeURIComponent(this.searchedForItem) + `&limit=30&extended=full`;
   }
   else {
-   return `https://api.trakt.tv/shows/played?page=${this.mediaPageNumber}&limit=${this.mediaItemsPerPage}&extended=metadata`;
-  //  return 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=' + this.mediaPageNumber +
-  // '&limit=' + this.mediaItemsPerPage + '&extended=metadata';
+ //  return `https://api.trakt.tv/shows/played?page=${this.mediaPageNumber}&limit=${this.mediaItemsPerPage}&extended=metadata`;
+   return 'https://api.trakt.tv/users/AdamMorgan/history/shows?page=' + this.mediaPageNumber +
+  '&limit=' + this.mediaItemsPerPage + '&extended=metadata';
 }
 }
 
